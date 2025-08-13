@@ -1,0 +1,30 @@
+// Online C compiler to run C program online for strncat function upto an index value n
+
+#include <stdio.h>
+#include <string.h>
+
+void strncat_function(char s1[], char s2[], int n)
+{
+    int len = 0;
+    for (int i = 0; s1[i] != '\0';i++)
+    {
+        len++;
+    }
+    
+    for (int i=len, j = 0; (s2[j] != '\0' && j < n); i++,j++)
+    {
+        s1[i] = s2[j];
+    }
+    
+    puts(s1);
+}
+
+int main()
+{
+  char s1[36] = "My name is Nani ";
+  char s2[20] = "My name is Baahubali";
+  
+  strncat_function(s1,s2,5);
+  
+  return 0;
+}
