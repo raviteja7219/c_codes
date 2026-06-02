@@ -1,4 +1,5 @@
 // Online C compiler to run C program for bitwise question using pre-processors
+// Owner : rponukup
 
 #include <stdio.h>
 
