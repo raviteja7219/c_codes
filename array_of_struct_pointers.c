@@ -1,42 +1,37 @@
 // Online C compiler to run C program online for ARRAY OF STRUCT POINTERS
+// Instead of using scanf("%s",e[i].name) for runtime input, usage of strcpy(e[i].name, "Raviteja") can be used for compile time input
 
 #include <stdio.h>
 #include <string.h>
 
-struct node
+#define ARRAY_SIZE 3
+
+struct emp
 {
-    int roll;
-    float percent;
     char name[20];
+    int num;
 };
 
-int main() 
-{
-    struct node s[3];
-    struct node *ptr[3];
-    for (int i=0;i<3;i++)
+int main() {
+    struct emp e[ARRAY_SIZE];
+    struct emp *eptr[ARRAY_SIZE];
+    
+    for (int i=0;i<ARRAY_SIZE;i++)
     {
-        ptr[i] = &s[i];
+        printf("Enter Employee %d name\n",i+1);
+        scanf("%s",e[i].name);
+        printf("Enter Employee %d num\n", i+1);
+        scanf("%d",&e[i].num);
+        
+        eptr[i] = &e[i];
     }
-    s[0].roll = 2;
-    s[0].percent = 91.23;
-    strcpy(s[0].name, "Raviteja");
-    ptr[1]->roll = 3;
-    ptr[1]->percent = 92.23;
-    strcpy(ptr[1]->name, "Ravish");
-    ptr[2]->roll = 4;
-    ptr[2]->percent = 93.23;
-    strcpy(ptr[2]->name, "Tejesh");
-
-    printf("%d\n",(ptr[0]->roll));
-    printf("%f\n",(ptr[0]->percent));
-    printf("%s\n",(ptr[0]->name));
-    printf("%d\n",(ptr[1]->roll));
-    printf("%f\n",(ptr[1]->percent));
-    printf("%s\n",(ptr[1]->name));
-    printf("%d\n",(ptr[2]->roll));
-    printf("%f\n",(ptr[2]->percent));
-    printf("%s\n",(ptr[2]->name));
+    
+    for (int i=0;i<ARRAY_SIZE;i++)
+    {
+        printf("Employee %d name is %s\n",i+1, eptr[i]->name);
+        printf("Employee %d Num is %d\n",i+1, eptr[i]->num);
+    }
     
     return 0;
 }
+
