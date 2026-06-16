@@ -15,11 +15,3 @@ int count_set_bits(int num)
     return count;
 }
 
-int main()
-{
-    int num = 11;
-
-    printf("No. of set bits = %d\n", count_set_bits(num));
-
-    return 0;
-}

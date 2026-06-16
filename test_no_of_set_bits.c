@@ -2,22 +2,9 @@
 
 #include <stdio.h>
 #include <assert.h>
+#include "no_of_set_bits.h"
 
-/* Function under test */
-int count_set_bits(int num)
-{
-    int count = 0;
-
-    while (num)
-    {
-        num = num & (num - 1);
-        count++;
-    }
-
-    return count;
-}
-
-void test_count_set_bits()
+int main()
 {
     /* Basic cases */
     assert(count_set_bits(0) == 0);
@@ -46,12 +33,7 @@ void test_count_set_bits()
     assert(count_set_bits(255) == 8);  // 11111111
     assert(count_set_bits(256) == 1);  // 100000000
 
-    printf("All test cases passed!\n");
-}
-
-int main()
-{
-    test_count_set_bits();
+    printf("All test cases related to no_of_set_bits are passed!\n");
     return 0;
 }
 
