@@ -1,133 +1,57 @@
 // Online C compiler to run C program for bitwise question using pre-processors
 // Owner : rponukup
 
-#include <stdio.h>
+#include "bitwise.h"
 
-#define choice 7
-
-#if choice == 1
-#define convert(value) ((0x000000ff & value) << 24) | ((0x0000ff00 & value) << 8) | \
-                       ((0x00ff0000 & value) >> 8) | ((0xff000000 & value) >> 24)
-
-int main(void)
+uint32_t convert_endian(uint32_t value)
 {
-    int value = 0x11223344;
-    int converted = 0;
-
-    printf("Value Before Converting = 0x%x\n", value);
-
-    converted = convert(value);
-
-    printf("Value After Converting = 0x%x\n", converted);
-    return 0;
+    return ((0x000000FF & value) << 24) |
+           ((0x0000FF00 & value) << 8) |
+           ((0x00FF0000 & value) >> 8) |
+           ((0xFF000000 & value) >> 24);
 }
 
-// **************************************************************************************************************
-
-#elif choice == 2
-
-// C code to implement the approach reversal of bits
-
-int main()
+uint32_t bit_reversal(uint32_t data)
 {
-    int data = 0xff;
-    for (int i=0,j=31;i<j;i++,j--)
+    uint32_t result = 0;
+
+    for (int i = 0; i < 32; i++)
     {
-        if ((data & (1<<j)) != (data & (1<<i)))
-        {
-            data = data ^ (1<<i);
-            data = data ^ (1<<j);
-        }
-        else
-            continue;
+        result <<= 1;
+        result |= (data & 1U);
+        data >>= 1;
     }
-    printf("%x",data);
 
-    return 0;
+    return result;
 }
 
-// **************************************************************************************************************
-
-#elif choice == 3
-// C code to implement the approach rotating the bits
-
-#define rotate_left(data,pos) (data<<pos)|(data>>(32-pos))
-#define rotate_right(data,pos) (data>>pos)|(data<<(32-pos))
-
-int main()
+uint32_t rotate_left(uint32_t data, int pos)
 {
-    int data = 128;
-    int pos = 2;
-
-    printf("\nrotate = %d",rotate_left(data,pos));
+    return (data << pos) | (data >> (32 - pos));
 }
 
-// **************************************************************************************************************
-
-#elif choice == 4
-
-// Swap the odd and even positions
-
-int main()
+uint32_t rotate_right(uint32_t data, int pos)
 {
-    unsigned int data = 128;
-    int a = ((data & 0xAAAAAAAA)>>1)|((data & 0x55555555)<<1);
-    printf("\nvalue = %d", a);
-    return 0;
+    return (data >> pos) | (data << (32 - pos));
 }
 
-// **************************************************************************************************************
-
-#elif choice == 5
-
-// Convert little Endian to Big Endian
-
-int main()
+uint32_t swap_odd_even_positions(uint32_t data)
 {
-    unsigned int data = 0x12345678;
-    unsigned int a = ((data & 0x000000FF)<<24 | (data & 0xFF000000)>>24) |
-        ((data & 0x00FF0000)>>8 | (data & 0x0000FF00)<<8);
-    printf("\nvalue = %x", a);
+    return ((data & 0xAAAAAAAA) >> 1) |
+           ((data & 0x55555555) << 1);
 }
 
-// **************************************************************************************************************
-
-#elif choice == 6
-
-// Online C compiler to run C program online for swapping of 2 bits
-
-int main() 
+uint32_t swapping_of_two_bits(uint32_t n, int pos1, int pos2)
 {
-    int n = 0x11111111;
-    int pos1 = 31;
-    int pos2 = 0;
-    
-    int final_value;
-    int n1 = (n>>pos1)&1;
-    int n2 = (n>>pos2)&1;
-    
-    if (n1 == n2)
+    uint32_t bit1 = (n >> pos1) & 1;
+    uint32_t bit2 = (n >> pos2) & 1;
+
+    if(bit1 != bit2)
     {
-        printf("Swapping Result = %x\n",n);
-        printf("Here, there is no need of Swapping as both bits have same value\n");
+        n ^= (1U << pos1);
+        n ^= (1U << pos2);
     }
-    else
-    {
-        final_value = n ^ (1<<pos1);
-        final_value = final_value ^ (1<<pos2);
-        
-        printf("Swapping Result = %x\n",final_value);
-        
-    }
-    return 0;
+
+    return n;
 }
 
-// **************************************************************************************************************
-
-#else
-
-int main() {
-    printf("Enter correct choice\n");
-}
-
-#endif
