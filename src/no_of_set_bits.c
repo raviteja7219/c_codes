@@ -1,18 +1,14 @@
-// program to calculate number of set bits in a number
+#include "no_of_set_bits.h"
 
-#include <stdio.h>
-
-int main()
+uint32_t no_of_set_bits(uint32_t num)
 {
-    int num = 11;
-    int count = 0;
+    uint32_t count = 0;
 
     while (num)
     {
-        num = num & (num - 1);
+        num &= (num - 1);
         count++;
     }
-    printf("No. of set bits = %d\n", count);
 
-    return 0;
+    return count;
 }
